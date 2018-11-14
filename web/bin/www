@@ -2,6 +2,7 @@
 
 /**
  * Module dependencies.
+ * 사용자 모듈 지정
  */
 
 var app = require('../app');
@@ -10,19 +11,25 @@ var http = require('http');
 
 /**
  * Get port from environment and store in Express.
+ * 환경 설정에 지정된 포트가 있다면 이를 사용하고
+ * 없다면 지정한 포트(3000)를 사용하도록 설정
  */
-
+// normalizePort() 함수는 지정된 포트의 값을 숫자나 문자열,
+// 아니면 false로 반환하도록 하는 함수이다.
+// 이를통해 port가 제대로 된 값인지 확인하게 된다.
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
+ * HTTP 서버 생성
  */
 
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
+ * 지정된 포트 상에서 응답 대기하도록 설정
  */
 
 server.listen(port);
