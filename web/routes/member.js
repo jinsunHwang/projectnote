@@ -49,5 +49,77 @@ router.post("/phone", function(req, res) {
     });
   });
 });
+
+//member/info
+router.post("/info", function(req, res) {
+  var phone = req.body.phone;
+  var name = req.body.name;
+  var sextype = req.body.sextype;
+  var birthday = req.body.birthday;
+
+  console.log({ name, sextype, birthday, phone });
+
+  var sql_count =
+    "select count(*) as cnt " + "from note_member " + "where phone = ?;";
+
+  var sql_insert =
+    "insert into note_member (phone, name, sextype, birthday) values(?, ?, ?, ?);";
+  var sql_update =
+    "update note_member set name = ?, sextype = ?, birthday = ? where phone = ?; ";
+  var sql_select = "select seq from note_member where phone = ?; ";
+
+  db.get().query(sql_count, phone, function(err, rows) {
+    if (rows[0].cnt > 0) {
+      console.log("sql_update : " + sql_update);
+
+      db.get().query(sql_update, [name, sextype, birthday, phone], function(
+        err,
+        result
+      ) {
+        if (err) return res.sendStatus(400);
+        console.log(result);
+
+        db.get().query(sql_select, phone, function(err, rows) {
+          if (err) return res.sendStatus(400);
+
+          res.status(200).send("" + rows[0].seq);
+        });
+      });
+    } else {
+      console.log("sql_insert : " + sql_insert);
+
+      db.get().query(sql_insert, [phone, name, sextype, birthday], function(
+        err,
+        result
+      ) {
+        if (err) return res.sendStatus(400);
+
+        res.status(200).send("" + result.insertId);
+      });
+    }
+  });
+});
+
+//member/icon_upload
+router.post("/icon_upload", function(req, res) {
+  var form = new formidable.IncomingForm();
+
+  form.on("fileBegin", function(name, file) {
+    file.path = "./public/member/" + file.name;
+  });
+
+  form.parse(req, function(err, fields, files) {
+    var sql_update =
+      "update note_member set member_icon_filename = ? where seq = ?;";
+
+    db.get().query(sql_update, [files.file.name, fields.member_seq], function(
+      err,
+      rows
+    ) {
+      res.sendStatus(200);
+    });
+  });
+});
+
 // 별도파일에서 작성한 함수를 사용할 수 있도록 moudle.exports를 추가
 module.exports = router;

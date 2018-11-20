@@ -3,6 +3,20 @@ package com.mobitant.note.lib;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+
+import com.mobitant.note.remote.RemoteService;
+import com.mobitant.note.remote.ServiceGenerator;
+
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RemoteLib {
     public static final String TAG = RemoteLib.class.getSimpleName();
@@ -41,4 +55,40 @@ public class RemoteLib {
             return false;
         }
     }
+
+    /**
+     * 사용자 프로필 아이콘을 서버에 업로드한다.
+     * @param memberSeq 사용자 일련번호
+     * @param file 파일 객체
+     */
+    public void uploadMemberIcon(int memberSeq, File file) {
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+        RequestBody memberSeqBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), "" + memberSeq);
+
+        Call<ResponseBody> call =
+                remoteService.uploadMemberIcon(memberSeqBody, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                MyLog.d(TAG, "uploadMemberIcon success");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                MyLog.e(TAG, "uploadMemberIcon fail");
+            }
+        });
+    }
+
+
 }

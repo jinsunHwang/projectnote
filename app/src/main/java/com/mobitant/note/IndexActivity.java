@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mobitant.note.item.MemberInfoItem;
 import com.mobitant.note.lib.EtcLib;
+import com.mobitant.note.lib.GeoLib;
 import com.mobitant.note.lib.MyLog;
 import com.mobitant.note.lib.RemoteLib;
 import com.mobitant.note.lib.StringLib;
@@ -63,17 +64,18 @@ public class IndexActivity extends AppCompatActivity {
         },1200);
     }
 
-    //    현재 인터넷에 접속할 수 없기 때문에 서비스를 사용할 수 없다는 메시지와
-//    화면 종료 버튼을 보여준다.
-    private void showNoService(){
-
+    /**
+     * 현재 인터넷에 접속할 수 없기 때문에 서비스를 사용할 수 없다는 메시지와
+     * 화면 종료 버튼을 보여준다.
+     */
+    private void showNoService() {
         TextView messageText = (TextView) findViewById(R.id.message);
         messageText.setVisibility(View.VISIBLE);
 
         Button closeButton = (Button) findViewById(R.id.close);
-        closeButton.setOnClickListener(new View.OnClickListener(){
+        closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -88,110 +90,114 @@ public class IndexActivity extends AppCompatActivity {
         String phone = EtcLib.getInstance().getPhoneNumber(this);
 
         selectMemberInfo(phone);
-//        GeoLib.getInstance().setLastKnownLocation(this);
+        GeoLib.getInstance().setLastKnownLocation(this);
     }
 
-    //    레트로핏을 활용해서 서버로부터 사용자 정보를 조회한다.
-//    사용자 정보를 조회했다면 setMemberInfoItem() 메소드를 호출하고,
-//    그렇지 않다면 goProfileActivity() 메소드를 호출한다.
-//    @param phone 폰의 전화번호
-    public void selectMemberInfo(String phone){
-        System.out.println("test3333-2");
+    /**
+     * 리트로핏을 활용해서 서버로부터 사용자 정보를 조회한다.
+     * 사용자 정보를 조회했다면 setMemberInfoItem() 메소드를 호출하고
+     * 그렇지 않다면 goProfileActivity() 메소드를 호출한다.
+     *
+     * @param phone 폰의 전화번호
+     */
+    public void selectMemberInfo(String phone) {
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
-        System.out.println("--------000000---------");
+
         Call<MemberInfoItem> call = remoteService.selectMemberInfo(phone);
-        System.out.println("--------000001---------");
         call.enqueue(new Callback<MemberInfoItem>() {
             @Override
             public void onResponse(Call<MemberInfoItem> call, Response<MemberInfoItem> response) {
-                MemberInfoItem item= response.body();
-                System.out.println("--------000002---------");
-                if(response.isSuccessful() && !StringLib.getInstance().isBlank(item.name)){
-                    System.out.println("test3333-333 ok");
-                    MyLog.d(TAG,"success"+response.body().toString());
+                MemberInfoItem item = response.body();
+
+                if (response.isSuccessful() && !StringLib.getInstance().isBlank(item.name)) {
+                    MyLog.d(TAG, "success " + response.body().toString());
                     setMemberInfoItem(item);
-                }
-                else {
-                    System.out.println("test3333-333fail");
-                    MyLog.d(TAG,"not success");
+                } else {
+                    MyLog.d(TAG, "not success");
                     goProfileActivity(item);
                 }
             }
 
             @Override
-            public  void onFailure(Call<MemberInfoItem> call, Throwable t){
-                MyLog.d(TAG,"no internet connectivity");
+            public void onFailure(Call<MemberInfoItem> call, Throwable t) {
+                MyLog.d(TAG, "no internet connectivity");
                 MyLog.d(TAG, t.toString());
             }
         });
     }
 
 
-    //    전달받은 MemberInfoItem을 Application 객체에 저장한다.
-//    그리고 startMain() 메소드를 호출한다.
-//    Application 클래스는 애플리케이션의 상태를 저장하고 이를 어디서나 호출해서 사용할수 있도록 해주는 클래스다
-//    @param item 사용자 정보
-    private  void  setMemberInfoItem(MemberInfoItem item){
-        System.out.println("test4444 OK");
+    /**
+     * 전달받은 MemberInfoItem을 Application 객체에 저장한다.
+     * 그리고 startMain() 메소드를 호출한다.
+     *
+     * @param item 사용자 정보
+     */
+    private void setMemberInfoItem(MemberInfoItem item) {
         ((MyApp) getApplicationContext()).setMemberInfoItem(item);
 
         startMain();
     }
 
-    //    MainActivity를 실행하고 현재 액티비티를 종료한다.
-    public void startMain(){
-        Intent intent = new Intent(IndexActivity.this,MainActivity.class);
+    /**
+     * MainActivity를 실행하고 현재 액티비티를 종료한다.
+     */
+    public void startMain() {
+        Intent intent = new Intent(IndexActivity.this, MainActivity.class);
         startActivity(intent);
 
         finish();
     }
 
-    //    사용자 정보를 조회하지 못했다면 insertMemberPhone() 메소드를 통해
-//    전화번호를 서버에 저장하고, MainActivity를 실행한 후에 ProfileActivity를 실행한다.
-//    그리고 현재 액티비티를 종료한다.
-//    @param item 사용자 정보
-    private void goProfileActivity(MemberInfoItem item){
-        System.out.println("test4444 fail");
-        if(item == null || item.seq<=0){
+    /**
+     * 사용자 정보를 조회하지 못했다면 insertMemberPhone() 메소드를 통해
+     * 전화번호를 서버에 저장하고 MainActivity를 실행한 후 ProfileActivity를 실행한다.
+     * 그리고 현재 액티비티를 종료한다.
+     *
+     * @param item 사용자 정보
+     */
+    private void goProfileActivity(MemberInfoItem item) {
+        if (item == null || item.seq <= 0) {
             insertMemberPhone();
         }
 
         Intent intent = new Intent(IndexActivity.this, MainActivity.class);
         startActivity(intent);
-//        Intent intent2 = new Intent(this,ProfileActivity.class);
-//        startActivity(intent2);
+
+        Intent intent2 = new Intent(this, ProfileActivity.class);
+        startActivity(intent2);
 
         finish();
     }
+
 
     //    폰의 전화번호를 서버에 저장한다.
 //    레트로핏을 활용하여 서버에 전화번호를 저장하고 있다.
 //    노드가 서버에 수신하여 데이터베이스 저장
 //    response.isSuccessful()이 true 인지 파악해서 저장 성공여부 확인
-    private void insertMemberPhone(){
-        String phone= EtcLib.getInstance().getPhoneNumber(context);
-        RemoteService remoteService= ServiceGenerator.createService(RemoteService.class);
+    private void insertMemberPhone() {
+        String phone = EtcLib.getInstance().getPhoneNumber(context);
+        RemoteService remoteService =
+                ServiceGenerator.createService(RemoteService.class);
 
         Call<String> call = remoteService.insertMemberPhone(phone);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
-                    MyLog.d(TAG,"success insert id"+response.body().toString());
-                }
-                else{
+                if (response.isSuccessful()) {
+                    MyLog.d(TAG, "success insert id " + response.body().toString());
+                } else {
                     int statusCode = response.code();
 
                     ResponseBody errorBody = response.errorBody();
 
-                    MyLog.d(TAG,"fail"+statusCode+errorBody.toString());
+                    MyLog.d(TAG, "fail " + statusCode + errorBody.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                MyLog.d(TAG,"no internet connectivity");
-
+                MyLog.d(TAG, "no internet connectivity");
             }
         });
     }

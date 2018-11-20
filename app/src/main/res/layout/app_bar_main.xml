@@ -20,7 +20,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
 
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/floatingActionButton"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="true"-->
+        <!--android:layout_margin="10dp"-->
+        <!--app:layout_anchor="@+id/include"-->
+        <!--app:layout_anchorGravity="right|bottom"-->
+        <!--app:srcCompat="@drawable/add_black_18dp" />-->
 
 </android.support.design.widget.CoordinatorLayout>

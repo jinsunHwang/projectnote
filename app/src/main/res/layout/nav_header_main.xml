@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <!-- 약추가할때 사용해도 될듯-->
+
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
