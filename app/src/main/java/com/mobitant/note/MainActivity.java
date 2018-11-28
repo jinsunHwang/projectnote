@@ -1,20 +1,18 @@
 package com.mobitant.note;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mobitant.note.item.MemberInfoItem;
+import com.mobitant.note.item.NoteInfoItem;
 import com.mobitant.note.lib.GoLib;
 import com.mobitant.note.lib.StringLib;
 import com.mobitant.note.remote.RemoteService;
@@ -29,10 +27,17 @@ public class MainActivity extends AppCompatActivity
     MemberInfoItem memberInfoItem;
     DrawerLayout drawer;
     View headerLayout;
+    NoteInfoItem noteInfoItem;
 
     CircleImageView profileIconImage;
+
+    /**
+     * 액티비티와 네비게이션 뷰를 설정하고 BestFoodListFragment를 화면에 보여준다.
+     * @param savedInstanceState 액티비티가 새로 생성되었을 경우, 이전 상태 값을 가지는 객체
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -43,10 +48,9 @@ public class MainActivity extends AppCompatActivity
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle =new ActionBarDrawerToggle(
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
-
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -55,27 +59,14 @@ public class MainActivity extends AppCompatActivity
 
         headerLayout = navigationView.getHeaderView(0);
 
-/*
         GoLib.getInstance()
                 .goFragment(getSupportFragmentManager(), R.id.content_main,
-                        BestFoodListFragment.newInstance());
-*/
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-////                        .setAction("Action", null).show();
-//                Intent intent = new Intent(getApplicationContext(),AddActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
+                        NoteListFragment.newinstace());
 
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -126,41 +117,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-//    /**
-//     * 네비게이션 메뉴를 클릭했을 때 호출되는 메소드
-//     * @param item 메뉴 아이템 객체
-//     * @return 메뉴 클릭 이벤트의 처리 여부
-//     */
-//    @SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_list) {
-//            GoLib.getInstance().goFragment(getSupportFragmentManager(),
-//                    R.id.content_main, BestFoodListFragment.newInstance());
-//
-//        } else if (id == R.id.nav_map) {
-//            GoLib.getInstance().goFragment(getSupportFragmentManager(),
-//                    R.id.content_main, BestFoodMapFragment.newInstance());
-//
-//        } else if (id == R.id.nav_keep) {
-//            GoLib.getInstance().goFragment(getSupportFragmentManager(),
-//                    R.id.content_main, BestFoodKeepFragment.newInstance());
-//
-//        } else if (id == R.id.nav_register) {
-//            GoLib.getInstance().goBestFoodRegisterActivity(this);
-//
-//        } else if (id == R.id.nav_profile) {
-//            GoLib.getInstance().goProfileActivity(this);
-//        }
-//
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -169,14 +125,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_mainpage) {
             // Handle the camera action
+            GoLib.getInstance().goFragment(getSupportFragmentManager(),R.id.content_main,NoteListFragment.newinstace());
         } else if (id == R.id.nav_note) {
 
+        } else if (id == R.id.nav_register) {
+            GoLib.getInstance().goNoteRegisterActivity(this);
         } else if (id == R.id.nav_profile) {
             GoLib.getInstance().goProfileActivity(this);
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

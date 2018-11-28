@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RemoteViewsService;
 import android.widget.TextView;
 
 import com.mobitant.note.item.MemberInfoItem;

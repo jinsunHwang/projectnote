@@ -60,4 +60,41 @@
     <string name="albumn">앨범</string>
     <string name="camera">카메라</string>
 
+    <!-- 메모 작성-->
+    <string name="note_register">작성</string>
+    <string name="input_note_content">내용</string>
+    <string name="input_text_length">글자수 :</string>
+    <string name="input_text_max_length">/1000</string>
+    <string name="input_note_title">제목을 입력해주세요</string>
+    <string name="input_note_input_content">내용을 입력해주세요</string>
+
+    <string name="title_need">제목을 설정해주세요</string>
+
+    <string name="note_insert_fail_message">메모 등록에 실패하였습니다. 다시 시도해주세요.</string>
+
+    <!-- DialogLib.java -->
+    <string name="keep_insert">즐겨찾기 등록</string>
+    <string name="keep_insert_message">즐겨찾기에 등록하시겠습니까?</string>
+
+    <string name="keep_delete">즐겨찾기 삭제</string>
+    <string name="keep_delete_message">즐겨찾기에서 삭제하시겠습니까?</string>
+
+    <!-- 이미지 -->
+    <string name="title_note_image_register">이미지 등록</string>
+    <string name="no_image_ready">이미지를 준비중입니다. 잠시 후에 다시 시도해주세요</string>
+    <string name="no_image_selected">이미지를 먼저 선택해주세요</string>
+
+
+    <!--노트 리스트 화면-->
+    <string name="order_default">내 메모</string>
+    <string name="order_share">공유</string>
+
+
+    <string name="description">상세설명</string>
+    <string name="title">상세설명</string>
+    <string name="loading">잠시만 기다려주세요</string>
+    <string name="loading_not">잠시후에 다시 시도해주세요</string>
+
+
+
 </resources>

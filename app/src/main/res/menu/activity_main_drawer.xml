@@ -13,6 +13,11 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="메모장" />
         <item
+            android:id="@+id/nav_register"
+            android:icon="@drawable/ic_plus"
+            android:title="메모 작성"
+            />
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
             android:title="프로필설정" />

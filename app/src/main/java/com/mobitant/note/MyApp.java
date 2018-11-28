@@ -4,10 +4,11 @@ import android.app.Application;
 import android.os.StrictMode;
 
 import com.mobitant.note.item.MemberInfoItem;
+import com.mobitant.note.item.NoteInfoItem;
 
 public class MyApp extends Application {
     private MemberInfoItem memberInfoItem;
-
+    private NoteInfoItem noteInfoItem;
 
     @Override
     public void onCreate() {
@@ -31,5 +32,11 @@ public class MyApp extends Application {
         return memberInfoItem.seq;
     }
 
+    public void setNoteInfoItem(NoteInfoItem noteInfoItem){
+        this.noteInfoItem = noteInfoItem;
+    }
 
+    public NoteInfoItem getNoteInfoItem() {
+        return noteInfoItem;
+    }
 }

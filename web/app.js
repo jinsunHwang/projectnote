@@ -28,6 +28,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/member", require("./routes/member"));
+app.use("/note", require("./routes/note"));
+app.use("/keep", require("./routes/keep"));
 
 // catch 404 and forward to error handler
 // 에러 핸들러들
