@@ -97,6 +97,7 @@ public class RemoteLib {
      * @param handler 처리 결과를 응답할 핸들러
      */
     public void uploadNoteImage(int infoSeq, File file, final Handler handler) {
+        System.out.println("RemoteLib 이미지 uploadNoteImage");
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
 
         RequestBody requestFile =

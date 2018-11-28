@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.mobitant.note.item.NoteInfoItem;
 import com.mobitant.note.lib.DialogLib;
 import com.mobitant.note.lib.MyLog;
@@ -31,7 +30,7 @@ import retrofit2.Response;
 /**
  * 맛집 정보를 보는 액티비티이다.
  */
-public class NoteInfoActivity extends AppCompatActivity
+public class NoteMemoActivity extends AppCompatActivity
         implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     public static final String INFO_SEQ = "INFO_SEQ";
@@ -39,7 +38,7 @@ public class NoteInfoActivity extends AppCompatActivity
     Context context;
 
     int memberSeq;
-    int noteInfoSeq;
+    int NoteInfoSeq;
 
     NoteInfoItem item;
 
@@ -61,8 +60,8 @@ public class NoteInfoActivity extends AppCompatActivity
         loadingText = findViewById(R.id.loading_layout);
 
         memberSeq = ((MyApp)getApplication()).getMemberSeq();
-        noteInfoSeq = getIntent().getIntExtra(INFO_SEQ, 0);
-        selectNoteInfo(noteInfoSeq, memberSeq);
+        NoteInfoSeq = getIntent().getIntExtra(INFO_SEQ, 0);
+        selectNoteInfo(NoteInfoSeq, memberSeq);
 
         setToolbar();
     }
@@ -113,12 +112,12 @@ public class NoteInfoActivity extends AppCompatActivity
 
     /**
      * 서버에서 맛집 정보를 조회한다.
-     * @param noteInfoSeq 맛집 정보 시퀀스
+     * @param NoteInfoSeq 맛집 정보 시퀀스
      * @param memberSeq 사용자 시퀀스
      */
-    private void selectNoteInfo(int noteInfoSeq, int memberSeq) {
+    private void selectNoteInfo(int NoteInfoSeq, int memberSeq) {
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
-        Call<NoteInfoItem> call = remoteService.selectNoteInfo(noteInfoSeq, memberSeq);
+        Call<NoteInfoItem> call = remoteService.selectNoteInfo(NoteInfoSeq, memberSeq);
 
         call.enqueue(new Callback<NoteInfoItem>() {
             @Override

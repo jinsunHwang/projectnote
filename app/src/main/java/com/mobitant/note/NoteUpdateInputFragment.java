@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NoteRegisterInputFragment extends Fragment implements View.OnClickListener {
+public class NoteUpdateInputFragment extends Fragment implements View.OnClickListener {
     public static final String INFO_ITEM = "INFO_ITEM";
     private final String TAG = this.getClass().getSimpleName();
 
@@ -50,12 +50,12 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
 //     * @param infoItem 맛집 정보를 저장하는 객체
 //     * @return NoteRegisterInputFragment 인스턴스
 //     */
-    public static NoteRegisterInputFragment newInstance(NoteInfoItem infoItem) {
+    public static NoteUpdateInputFragment newInstance(NoteInfoItem infoItem) {
         System.out.println("등록 newinstance");
         Bundle bundle = new Bundle();
         bundle.putParcelable(INFO_ITEM, Parcels.wrap(infoItem));
 
-        NoteRegisterInputFragment fragment = new NoteRegisterInputFragment();
+        NoteUpdateInputFragment fragment = new NoteUpdateInputFragment();
         fragment.setArguments(bundle);
 
         return fragment;
@@ -69,11 +69,14 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         System.out.println("등록 onCreate");
+
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             infoItem = Parcels.unwrap(getArguments().getParcelable(INFO_ITEM));
             if (infoItem.seq != 0) {
+
+                //selectinfonote
                 NoteRegisterActivity.currentItem = infoItem;
             }
             MyLog.d(TAG, "infoItem " + infoItem);
@@ -108,8 +111,13 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
 
         currentLength = (TextView) view.findViewById(R.id.current_length);
+
         titleEdit = (EditText) view.findViewById(R.id.note_title);
+
+
         contentEdit = (EditText) view.findViewById(R.id.note_content);
+
+
         contentEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,4 +253,33 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
         GoLib.getInstance().goFragmentBack(getFragmentManager(),
                 R.id.content_main, NoteRegisterImageFragment.newInstance(infoItem.seq));
     }
+
+    private void selectNoteInfo(int noteInfoSeq,int memberSeq){
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+        Call<NoteInfoItem> call = remoteService.selectNoteInfo(noteInfoSeq, memberSeq);
+
+        call.enqueue(new Callback<NoteInfoItem>() {
+            @Override
+            public void onResponse(Call<NoteInfoItem> call, Response<NoteInfoItem> response) {
+                NoteInfoItem infoItem = response.body();
+
+                if (response.isSuccessful() && infoItem != null && infoItem.seq > 0) {
+                    NoteUpdateActivity.currentItem = infoItem;
+                    setView();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteInfoItem> call, Throwable t) {
+                MyLog.d(TAG, "no internet connectivity");
+                MyLog.d(TAG, t.toString());
+            }
+        });
+    }
+
+    private void setView(){
+        titleEdit.setText(NoteUpdateActivity.currentItem.title);
+        contentEdit.setText(NoteUpdateActivity.currentItem.content);
+    }
+
 }

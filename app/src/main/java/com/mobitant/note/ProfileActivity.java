@@ -56,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("프로필 onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
@@ -72,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     protected void onResume() {
+        System.out.println("프로필 onResume");
         super.onResume();
 
         MyLog.d(TAG, RemoteService.MEMBER_ICON_URL + currentItem.memberIconFilename);
@@ -89,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      * 액티비티 툴바를 설정한다.
      */
     private void setToolbar() {
+        System.out.println("프로필 setToolbar");
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
@@ -103,6 +106,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      * 액티비티 화면을 설정한다.
      */
     private void setView() {
+        System.out.println("프로필 setView");
         profileIconImage = (ImageView) findViewById(R.id.profile_icon);
         profileIconImage.setOnClickListener(this);
 
@@ -234,6 +238,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      * @return 사용자 정보 객체
      */
     private MemberInfoItem getMemberInfoItem() {
+        System.out.println("프로필 getMemberInfoItem");
         MemberInfoItem item = new MemberInfoItem();
         item.phone = EtcLib.getInstance().getPhoneNumber(context);
         item.name = nameEdit.getText().toString();
@@ -249,6 +254,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
      * @return 변경되었다면 true, 변경되지 않았다면 false
      */
     private boolean isChanged(MemberInfoItem newItem) {
+        System.out.println("프로필 is  C");
         if (newItem.name.trim().equals(currentItem.name)
                 && newItem.sextype.trim().equals(currentItem.sextype)
                 && newItem.birthday.trim().equals(currentItem.birthday)) {

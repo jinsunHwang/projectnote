@@ -64,7 +64,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 oncreateview");
         context = this.getActivity();
 
         memberSeq = ((MyApp)this.getActivity().getApplication()).getMemberSeq();
@@ -81,8 +81,9 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onResume() {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 onresume");
         super.onResume();
+
 
         MyApp myApp = ((MyApp) getActivity().getApplication());
         NoteInfoItem currentInfoItem = myApp.getNoteInfoItem();
@@ -100,7 +101,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 onviewCreated");
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.nav_note);
 
@@ -128,7 +129,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      * @param row 스태거드그리드레이아웃에 사용할 열의 개수
      */
     private void setLayoutManager(int row) {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 setLayout");
         layoutManager = new StaggeredGridLayoutManager(row, StaggeredGridLayoutManager.VERTICAL);
         layoutManager
                 .setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
@@ -139,7 +140,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      * 리사이클러뷰를 설정하고 스크롤 리스너를 추가한다.
      */
     private void setRecyclerView() {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 setrecyclerview");
         setLayoutManager(listTypeValue);
 
         infoListAdapter = new InfoListAdapter(context,
@@ -162,7 +163,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
      * @param currentPage 현재 페이지
      */
     private void listInfo(int memberSeq, String orderType, final int currentPage) {
-        System.out.println("프래그먼트 테스트 2");
+        System.out.println("프래그먼트 테스트 listinfo");
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
 
         Call<ArrayList<NoteInfoItem>> call = remoteService.listNoteInfo(memberSeq, orderType, currentPage);

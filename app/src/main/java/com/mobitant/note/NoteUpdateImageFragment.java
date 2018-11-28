@@ -32,7 +32,7 @@ import com.squareup.picasso.Target;
 
 import java.io.File;
 
-public class NoteRegisterImageFragment extends Fragment implements View.OnClickListener {
+public class NoteUpdateImageFragment extends Fragment implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
     public static final String INFO_SEQ = "INFO_SEQ";
 
@@ -57,12 +57,12 @@ public class NoteRegisterImageFragment extends Fragment implements View.OnClickL
      * @param infoSeq 서버에 저장한 노트 정보에 대한 시퀀스
      * @return noteRegisterImageFragment 인스턴스
      */
-    public static NoteRegisterImageFragment newInstance(int infoSeq){
+    public static NoteUpdateImageFragment newInstance(int infoSeq){
         System.out.println("이미지 newInstance");
         Bundle bundle = new Bundle();
         bundle.putInt(INFO_SEQ,infoSeq);
 
-        NoteRegisterImageFragment f = new NoteRegisterImageFragment();
+        NoteUpdateImageFragment f = new NoteUpdateImageFragment();
         f.setArguments(bundle);
 
         return f;

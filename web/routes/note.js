@@ -8,25 +8,82 @@ var LOADING_SIZE = 20;
 // var DEFAULT_USER_LONGITUDE = 126.977689;
 
 //note/info
+// router.post("/info", function(req, res, next) {
+//   if (!req.body.member_seq) {
+//     return res.sendStatus(400);
+//   }
+//
+//   var member_seq = req.body.member_seq;
+//   var title = req.body.title;
+//   var content = req.body.content;
+//
+//   var sql_insert =
+//     "insert into note_info (member_seq,title,content) " + "values(?,?,?); ";
+//   var sql_update =
+//     "update note_info set title = ? , content = ? where member_seq;";
+//
+//   console.log(sql_insert);
+//
+//   var params = [member_seq, title, content];
+//
+//   db.get().query(sql_insert, params, function(err, result) {
+//     console.log(result.insertId);
+//     res.status(200).send("" + result.insertId);
+//   });
+// });
+
 router.post("/info", function(req, res, next) {
   if (!req.body.member_seq) {
     return res.sendStatus(400);
   }
 
+  var info_seq = req.body.seq;
   var member_seq = req.body.member_seq;
   var title = req.body.title;
   var content = req.body.content;
 
+  var sql_count =
+    "select count(*) as cnt " + "from note_info " + "where seq = ?;";
+  console.log("sql_count : " + sql_count);
+
   var sql_insert =
     "insert into note_info (member_seq,title,content) " + "values(?,?,?); ";
+  var sql_update =
+    "update note_info set title = ? , content = ? where seq = ?;";
+  var sql_select = "select * from note_info where seq = ?;";
 
   console.log(sql_insert);
 
   var params = [member_seq, title, content];
 
-  db.get().query(sql_insert, params, function(err, result) {
-    console.log(result.insertId);
-    res.status(200).send("" + result.insertId);
+  db.get().query(sql_count, info_seq, function(err, rows) {
+    console.log("logloglog---------- :" + rows[0].cnt);
+    if (rows[0].cnt > 0) {
+      console.log("sql_update : " + sql_update);
+
+      db.get().query(sql_update, [title, content, info_seq], function(
+        err,
+        result
+      ) {
+        if (err) return res.sendStatus(400);
+        console.log(result);
+
+        db.get().query(sql_select, info_seq, function(err, rows) {
+          if (err) return res.sendStatus(400);
+
+          res.status(200).send("" + rows[0].seq);
+        });
+      });
+    } else {
+      console.log("sql_insert : " + sql_insert);
+
+      db.get().query(sql_insert, params, function(err, result) {
+        if (err) return res.sendStatus(400);
+
+        console.log(result.insertId);
+        res.status(200).send("" + result.insertId);
+      });
+    }
   });
 });
 

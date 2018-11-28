@@ -6,9 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 
+import com.mobitant.note.MainActivity;
 import com.mobitant.note.NoteInfoActivity;
 //import com.mobitant.note.NoteListActivity;
 import com.mobitant.note.NoteRegisterActivity;
+import com.mobitant.note.NoteUpdateActivity;
 import com.mobitant.note.ProfileActivity;
 
 public class GoLib {
@@ -83,12 +85,12 @@ public class GoLib {
         context.startActivity(intent);
     }
 //
-////    리스트 액티비티 실행
-//    public void goNoteListActivity(Context context){
-//        Intent intent = new Intent(context, NoteListActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//        context.startActivity(intent);
-//    }
+//    리스트 액티비티 실행
+    public void goNoteListActivity(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        context.startActivity(intent);
+    }
 
 
 
@@ -98,9 +100,12 @@ public class GoLib {
      * @param infoSeq 맛집 정보 일련번호
      */
     public void goNoteInfoActivity(Context context, int infoSeq) {
-        Intent intent = new Intent(context, NoteInfoActivity.class);
-        intent.putExtra(NoteInfoActivity.INFO_SEQ, infoSeq);
+        System.out.println("노트 정보 gogo");
+        Intent intent = new Intent(context, NoteUpdateActivity.class);
+        intent.putExtra(NoteUpdateActivity.INFO_SEQ, infoSeq);
         context.startActivity(intent);
     }
+
+
 }
 

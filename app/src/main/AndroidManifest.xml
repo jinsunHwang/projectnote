@@ -33,6 +33,7 @@
 
         <activity android:name=".NoteInfoActivity"/>
         <activity android:name=".NoteRegisterActivity"/>
+        <activity android:name=".NoteUpdateActivity"/>
     </application>
 
 </manifest>
