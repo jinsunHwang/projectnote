@@ -88,31 +88,9 @@ router.post("/info", function(req, res, next) {
 });
 
 //note/info/image
-// router.post("/info/image", function(req, res) {
-//   var form = new formidable.IncomingForm();
-//   var info_seq = req.body.infoSeq;
-//   console.log("image -----info_seq:" + info_seq);
-//
-//   form.on("fileBegin", function(name, file) {
-//     file.path = "./public/img/" + file.name;
-//   });
-//
-//   form.parse(req, function(err, fields, files) {
-//     var sql_insert =
-//       "insert into note_info_image (info_seq, filename) values (?, ?);";
-//     console.log("image -----fields.info_seq" + fields.info_seq);
-//     db.get().query(sql_insert, [fields.info_seq, files.file.name], function(
-//       err,
-//       rows
-//     ) {
-//       res.sendStatus(200);
-//     });
-//     console.log("sql_insert : " + sql_insert);
-//   });
-// });
-
 router.post("/info/image", function(req, res) {
   var form = new formidable.IncomingForm();
+  var info_seq = req.body.seq;
 
   form.on("fileBegin", function(name, file) {
     file.path = "./public/img/" + file.name;
@@ -121,42 +99,18 @@ router.post("/info/image", function(req, res) {
   form.parse(req, function(err, fields, files) {
     var sql_count =
       "select count(*) as cnt from note_info_image where info_seq = ?;";
-
     var sql_insert =
       "insert into note_info_image (info_seq, filename) values (?, ?);";
     var sql_update =
       "update note_info_image set filename = ? where info_seq = ?;";
-    var sql_select = "select * from note_info_image where info_seq ?;";
 
-    db.get().query(sql_count, fields.info_seq, function(err, rows) {
-      console.log("log------:" + rows[0].cnt);
-
-      if (rows[0].cnt > 0) {
-        console.log("sql_update :" + sql_update);
-
-        db.get().query(sql_update, [files.file.name, fields.info_seq], function(
-          err,
-          result
-        ) {
-          if (err) return res.sendStatus(400);
-          console.log(result);
-
-          db.get().query(sql_select, [fields.info_seq], function(err, rows) {
-            if (err) return res.sendStatus(400);
-
-            res.status(200);
-          });
-        });
-      } else {
-        db.get().query(sql_insert, [fields.info_seq, files.file.name], function(
-          err,
-          rows
-        ) {
-          res.sendStatus(200);
-        });
-        console.log("sql_insert : " + sql_insert);
-      }
+    db.get().query(sql_insert, [fields.info_seq, files.file.name], function(
+      err,
+      rows
+    ) {
+      res.sendStatus(200);
     });
+    console.log("sql_insert : " + sql_insert);
   });
 });
 

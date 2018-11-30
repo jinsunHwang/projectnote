@@ -49,6 +49,12 @@ public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHo
         memberInfoItem = ((MyApp) context.getApplicationContext()).getMemberInfoItem();
     }
 
+    public void setItemList(ArrayList<NoteInfoItem> itemList){
+        this.itemList = itemList;
+        notifyDataSetChanged();
+
+    }
+
     /**
      * 특정 아이템의 변경사항을 적용하기 위해 기본 아이템을 새로운 아이템으로 변경한다.
      * @param newItem 새로운 아이템

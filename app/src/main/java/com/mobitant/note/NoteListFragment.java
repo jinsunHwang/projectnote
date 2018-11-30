@@ -29,7 +29,6 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
 
     Context context;
-
     int memberSeq;
 
     RecyclerView noteList;
@@ -179,6 +178,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
                     if (infoListAdapter.getItemCount() == 0) {
                         noDataText.setVisibility(View.VISIBLE);
                     } else {
+                        infoListAdapter.setItemList(list);
                         noDataText.setVisibility(View.GONE);
                     }
                 }

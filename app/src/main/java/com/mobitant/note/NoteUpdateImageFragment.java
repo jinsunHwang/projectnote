@@ -18,19 +18,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RemoteViewsService;
+import android.widget.TextView;
 
 import com.mobitant.note.item.ImageItem;
+import com.mobitant.note.item.NoteInfoItem;
 import com.mobitant.note.lib.BitmapLib;
 import com.mobitant.note.lib.FileLib;
 import com.mobitant.note.lib.GoLib;
 import com.mobitant.note.lib.MyLog;
 import com.mobitant.note.lib.MyToast;
 import com.mobitant.note.lib.RemoteLib;
+import com.mobitant.note.lib.StringLib;
 import com.mobitant.note.remote.RemoteService;
+import com.mobitant.note.remote.ServiceGenerator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.File;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NoteUpdateImageFragment extends Fragment implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
@@ -41,9 +50,11 @@ public class NoteUpdateImageFragment extends Fragment implements View.OnClickLis
 
     Activity context;
     int infoSeq;
+    int memberSeq;
 
     File imageFile;
     String imageFilename;
+    NoteInfoItem saveitem;
 
     ImageView infoImage;
 
@@ -79,7 +90,11 @@ public class NoteUpdateImageFragment extends Fragment implements View.OnClickLis
 
         if (getArguments() != null) {
             infoSeq = getArguments().getInt(INFO_SEQ);
+            memberSeq = ((MyApp)getActivity().getApplication()).getMemberSeq();
+
         }
+
+        System.out.println("infoSeq :"+infoSeq + "memberSeq :" +memberSeq );
     }
 
     /**
@@ -115,6 +130,7 @@ public class NoteUpdateImageFragment extends Fragment implements View.OnClickLis
         imageFile = FileLib.getInstance().getImageFile(context, imageFilename);
 
         infoImage = (ImageView) view.findViewById(R.id.note_image);
+        selectNoteInfo(infoSeq,memberSeq);
 
         ImageView imageRegister = (ImageView) view.findViewById(R.id.note_image_register);
         imageRegister.setOnClickListener(this);
@@ -274,11 +290,44 @@ public class NoteUpdateImageFragment extends Fragment implements View.OnClickLis
             System.out.println("이미지 handelMessage finishHandler");
             super.handleMessage(msg);
 
-            context.finish();
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            context.startActivity(intent);
         }
     };
 
 
+    private void selectNoteInfo(int noteInfoSeq,int memberSeq){
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+        Call<NoteInfoItem> call = remoteService.selectNoteInfo(noteInfoSeq, memberSeq);
+
+        call.enqueue(new Callback<NoteInfoItem>() {
+            @Override
+            public void onResponse(Call<NoteInfoItem> call, Response<NoteInfoItem> response) {
+                NoteInfoItem infoItem = response.body();
+
+                if (response.isSuccessful() && infoItem != null && infoItem.seq > 0) {
+                    saveitem = infoItem;
+                    setImage(infoImage,saveitem.imageFilename);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteInfoItem> call, Throwable t) {
+                MyLog.d(TAG, "no internet connectivity");
+                MyLog.d(TAG, t.toString());
+            }
+        });
+    }
+
+    private void setImage(ImageView imageView, String fileName){
+        if (StringLib.getInstance().isBlank(fileName)) {
+            Picasso.with(context).load(R.drawable.bg_note_drawer).into(imageView);
+        } else {
+            Picasso.with(context).load(RemoteService.IMAGE_URL + fileName).into(imageView);
+        }
+    }
 
 
 }

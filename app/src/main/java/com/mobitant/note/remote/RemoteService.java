@@ -61,6 +61,12 @@ public interface RemoteService {
                                                @Query("order_type") String orderType,
                                                @Query("current_page") int currentPage);
 
+//    @GET("/note/list")
+//    Call<ArrayList<NoteInfoItem>> listNoteInfo(@Query("member_seq") int memberSeq,
+//                                               @Query("order_type") String orderType,
+//                                               @Query("current_page") int currentPage);
+
+
     //즐겨찾기
     @POST("/keep/{member_seq}/{info_seq}")
     Call<String> insertKeep(@Path("member_seq") int memberSeq, @Path("info_seq") int infoSeq);

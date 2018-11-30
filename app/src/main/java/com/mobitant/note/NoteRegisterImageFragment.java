@@ -274,7 +274,10 @@ public class NoteRegisterImageFragment extends Fragment implements View.OnClickL
             System.out.println("이미지 handelMessage finishHandler");
             super.handleMessage(msg);
 
-            context.finish();
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            context.startActivity(intent);
+//            context.finish();
         }
     };
 

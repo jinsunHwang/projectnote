@@ -37,7 +37,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
 
     Context context;
     NoteInfoItem infoItem;
-    MemberInfoItem memberInfoItem;
+    NoteInfoItem saveItem = new NoteInfoItem();
     Address address;
 
     EditText titleEdit;
@@ -57,7 +57,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
 
         NoteUpdateInputFragment fragment = new NoteUpdateInputFragment();
         fragment.setArguments(bundle);
-
+//        System.out.println("instance ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻ"+fragment);
         return fragment;
     }
 
@@ -68,18 +68,19 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        System.out.println("등록 onCreate");
-
+        System.out.println("등록 onCreate-----------");
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             infoItem = Parcels.unwrap(getArguments().getParcelable(INFO_ITEM));
+            saveItem=infoItem;
+
             if (infoItem.seq != 0) {
 
                 //selectinfonote
-                NoteRegisterActivity.currentItem = infoItem;
+                NoteUpdateActivity.currentItem = infoItem;
             }
-            MyLog.d(TAG, "infoItem " + infoItem);
+            MyLog.d(TAG, "infoItem asdfasdfasdf" + infoItem);
         }
     }
 
@@ -113,9 +114,10 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
         currentLength = (TextView) view.findViewById(R.id.current_length);
 
         titleEdit = (EditText) view.findViewById(R.id.note_title);
-
+        titleEdit.setText(saveItem.title);
 
         contentEdit = (EditText) view.findViewById(R.id.note_content);
+        contentEdit.setText(saveItem.content);
 
 
         contentEdit.addTextChangedListener(new TextWatcher() {
@@ -251,7 +253,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
     private void goNextPage() {
         System.out.println("등록 goNextPage");
         GoLib.getInstance().goFragmentBack(getFragmentManager(),
-                R.id.content_main, NoteRegisterImageFragment.newInstance(infoItem.seq));
+                R.id.content_main, NoteUpdateImageFragment.newInstance(infoItem.seq));
     }
 
     private void selectNoteInfo(int noteInfoSeq,int memberSeq){

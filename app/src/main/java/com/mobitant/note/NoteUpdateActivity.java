@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobitant.note.item.NoteInfoItem;
@@ -32,10 +34,12 @@ public class NoteUpdateActivity extends AppCompatActivity {
     public static final String INFO_SEQ = "INFO_SEQ";
 
 
-    NoteInfoItem item;
+    NoteInfoItem item = new NoteInfoItem();
     Context context;
-    int noteInfoSeq;
-    int memberSeq;
+    public static int noteInfoSeq;
+    public static int memberSeq;
+    String setTitle_str;
+    String setContent_str;
 
     /**
      * noteRegisterLocationFragment를 실행하기 위한 기본적인 정보를 설정하고
@@ -61,43 +65,55 @@ public class NoteUpdateActivity extends AppCompatActivity {
         MyLog.d(TAG, "infoItem " + toString());
 
         setToolbar();
+        selectNoteInfo(noteInfoSeq,memberSeq);
 
-        //noteRegisterLocationFragment를 화면에 보여준다.
-        GoLib.getInstance().goFragment(getSupportFragmentManager(),
-                R.id.content_main, NoteUpdateInputFragment.newInstance(infoItem));
+
     }
 
-//    /**
-//     * 서버에서 맛집 정보를 조회한다.
-//     * @param noteInfoSeq 맛집 정보 시퀀스
-//     * @param memberSeq 사용자 시퀀스
-//     */
-//    private void selectNoteInfo(int noteInfoSeq, int memberSeq) {
-//        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
-//        Call<NoteInfoItem> call = remoteService.selectNoteInfo(noteInfoSeq, memberSeq);
-//
-//        call.enqueue(new Callback<NoteInfoItem>() {
-//            @Override
-//            public void onResponse(Call<NoteInfoItem> call, Response<NoteInfoItem> response) {
-//                NoteInfoItem infoItem = response.body();
-//
-//                if (response.isSuccessful() && infoItem != null && infoItem.seq > 0) {
-//                    item = infoItem;
-//                    setView();
-//                    loadingText.setVisibility(View.GONE);
-//                } else {
-//                    loadingText.setVisibility(View.VISIBLE);
-//                    ((TextView) findViewById(R.id.loading_text)).setText(R.string.loading_not);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NoteInfoItem> call, Throwable t) {
-//                MyLog.d(TAG, "no internet connectivity");
-//                MyLog.d(TAG, t.toString());
-//            }
-//        });
-//    }
+    /**
+     * 서버에서 맛집 정보를 조회한다.
+     * @param noteInfoSeq 맛집 정보 시퀀스
+     * @param memberSeq 사용자 시퀀스
+     */
+    private void selectNoteInfo(int noteInfoSeq, int memberSeq) {
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+        Call<NoteInfoItem> call = remoteService.selectNoteInfo(noteInfoSeq, memberSeq);
+
+        call.enqueue(new Callback<NoteInfoItem>() {
+            @Override
+            public void onResponse(Call<NoteInfoItem> call, Response<NoteInfoItem> response) {
+                NoteInfoItem infoItem = response.body();
+
+                if (response.isSuccessful() && infoItem != null && infoItem.seq > 0) {
+                    item = infoItem;
+                    setStringView();
+
+                    System.out.println("selectnoteinfo --------------------: "+ setContent_str);
+                    System.out.println("select-------------------item--------"+item.title);
+
+                    GoLib.getInstance().goFragment(getSupportFragmentManager(),
+                            R.id.content_main, NoteUpdateInputFragment.newInstance(item));
+
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoteInfoItem> call, Throwable t) {
+                MyLog.d(TAG, "no internet connectivity");
+                MyLog.d(TAG, t.toString());
+            }
+        });
+    }
+
+    private void setStringView(){
+        setTitle_str= item.title;
+        setContent_str=item.content;
+
+
+    }
 
 
 
