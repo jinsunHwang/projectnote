@@ -66,11 +66,6 @@
                         android:textColor="@color/text_color_black"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/keep"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_keep_off" />
 
                 </LinearLayout>
 
@@ -78,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:background="@drawable/bg_round"
                 android:orientation="vertical"

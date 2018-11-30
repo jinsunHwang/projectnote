@@ -31,8 +31,7 @@ import retrofit2.Response;
 /**
  * 맛집 정보를 보는 액티비티이다.
  */
-public class NoteInfoActivity extends AppCompatActivity
-        implements View.OnClickListener {
+public class NoteInfoActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     public static final String INFO_SEQ = "INFO_SEQ";
 
@@ -45,7 +44,6 @@ public class NoteInfoActivity extends AppCompatActivity
 
     View loadingText;
     ScrollView scrollView;
-    ImageView keepImage;
 
     /**
      * 맛집 정보를 보여주기 위해 사용자 시퀀스와 맛집 정보 시퀀스를 얻고
@@ -164,13 +162,6 @@ public class NoteInfoActivity extends AppCompatActivity
             nameText.setText(item.title);
         }
 
-        keepImage = (ImageView) findViewById(R.id.keep);
-        keepImage.setOnClickListener(this);
-        if (item.isKeep) {
-            keepImage.setImageResource(R.drawable.ic_keep_on);
-        } else {
-            keepImage.setImageResource(R.drawable.ic_keep_off);
-        }
 
 
         TextView content = (TextView) findViewById(R.id.content);
@@ -183,39 +174,6 @@ public class NoteInfoActivity extends AppCompatActivity
     }
 
 
-    /**
-     * 즐겨찾기 버튼과 위치보기 버튼을 클릭했을 때의 동작을 정의한다.
-     * @param v 클릭한 뷰에 대한 정보
-     */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.keep) {
-            if (item.isKeep) {
-                DialogLib.getInstance()
-                        .showKeepDeleteDialog(context, keepHandler, memberSeq, item.seq);
-                keepImage.setImageResource(R.drawable.ic_keep_off);
-            } else {
-                DialogLib.getInstance()
-                        .showKeepInsertDialog(context, keepHandler, memberSeq, item.seq);
-                keepImage.setImageResource(R.drawable.ic_keep_on);
-            }
-        }
-    }
-
-    Handler keepHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            item.isKeep = !item.isKeep;
-
-            if (item.isKeep) {
-                keepImage.setImageResource(R.drawable.ic_keep_on);
-            } else {
-                keepImage.setImageResource(R.drawable.ic_keep_off);
-            }
-        }
-    };
 
 
     /**
@@ -231,11 +189,7 @@ public class NoteInfoActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * 화면이 일시정지 상태로 될 때 호출되며 현재 아이템의 변경 사항을 저장한다.
-     * 이는 noteListFragment나 noteKeepFragment에서 변경된 즐겨찾기 상태를 반영하는
-     * 용로도 사용된다.
-     */
+
     @Override
     protected void onPause() {
         super.onPause();

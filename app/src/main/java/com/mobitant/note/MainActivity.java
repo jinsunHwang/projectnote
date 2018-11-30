@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             GoLib.getInstance().goFragment(getSupportFragmentManager(),R.id.content_main,NoteListFragment.newinstace());
         } else if (id == R.id.nav_note) {
+            GoLib.getInstance().goFragment(getSupportFragmentManager(),R.id.content_main,NoteShareFragment.newinstace());
 
         } else if (id == R.id.nav_register) {
             GoLib.getInstance().goNoteRegisterActivity(this);

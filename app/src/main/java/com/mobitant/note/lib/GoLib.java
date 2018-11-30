@@ -106,6 +106,18 @@ public class GoLib {
         context.startActivity(intent);
     }
 
+    /**
+     * 맛집 정보 액티비티를 실행한다.
+     * @param context 컨텍스트
+     * @param infoSeq 맛집 정보 일련번호
+     */
+    public void goNoteShareActivity(Context context, int infoSeq) {
+        System.out.println("노트 정보 gogo");
+        Intent intent = new Intent(context, NoteInfoActivity.class);
+        intent.putExtra(NoteInfoActivity.INFO_SEQ, infoSeq);
+        context.startActivity(intent);
+    }
+
 
 }
 

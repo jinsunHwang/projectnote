@@ -61,10 +61,9 @@ public interface RemoteService {
                                                @Query("order_type") String orderType,
                                                @Query("current_page") int currentPage);
 
-//    @GET("/note/list")
-//    Call<ArrayList<NoteInfoItem>> listNoteInfo(@Query("member_seq") int memberSeq,
-//                                               @Query("order_type") String orderType,
-//                                               @Query("current_page") int currentPage);
+    @GET("/note/share")
+    Call<ArrayList<NoteInfoItem>> listShareInfo(@Query("order_type") String orderType,
+                                               @Query("current_page") int currentPage);
 
 
     //즐겨찾기

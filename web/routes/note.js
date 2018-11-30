@@ -227,18 +227,56 @@ router.get("/list", function(req, res, next) {
     "  if( exists(select * from note_keep where member_seq = ? and info_seq = a.seq), 'true', 'false') as is_keep, " +
     "  (select filename from note_info_image where info_seq = a.seq) as image_filename " +
     "from note_info as a " +
-    "order by reg_date desc " +
-    "limit ? , ? ; ";
+    "where member_seq = ?" +
+    "order by reg_date desc ";
   // var sql =
   //   "select * , (select filename from note_info_image where info_seq = a.seq) as image_filename from note_info order by reg_date desc limit ? , ? ;";
   // var sql = "select * from note_info";
   console.log("sql : " + sql);
   console.log("order_add : " + order_add);
 
-  var params = [member_seq, start_page, LOADING_SIZE];
+  var params = [member_seq, member_seq];
   // var params = [start_page, LOADING_SIZE];
 
   db.get().query(sql, params, function(err, rows) {
+    if (err) return res.sendStatus(400);
+
+    console.log("rows : " + JSON.stringify(rows));
+    res.status(200).json(rows);
+  });
+});
+
+//note/share
+router.get("/share", function(req, res, next) {
+  var order_type = req.query.order_type;
+  var current_page = req.query.current_page || 0;
+
+  var order_add = "";
+
+  // if (order_type) {
+  //   order_add = order_type + " desc, user_distance_meter";
+  // } else {
+  //   order_add = "user_distance_meter";
+  // }
+
+  var start_page = current_page * LOADING_SIZE;
+
+  var sql =
+    "select a.*, " +
+    " (select filename from note_info_image where info_seq = a.seq) as image_filename " +
+    "from note_info as a " +
+    "where keep_cnt = 1 " +
+    "order by reg_date desc ";
+  // var sql =
+  //   "select * , (select filename from note_info_image where info_seq = a.seq) as image_filename from note_info order by reg_date desc limit ? , ? ;";
+  // var sql = "select * from note_info";
+  console.log("sql : " + sql);
+  console.log("order_add : " + order_add);
+
+  var params = [start_page, LOADING_SIZE];
+  // var params = [start_page, LOADING_SIZE];
+
+  db.get().query(sql, function(err, rows) {
     if (err) return res.sendStatus(400);
 
     console.log("rows : " + JSON.stringify(rows));
