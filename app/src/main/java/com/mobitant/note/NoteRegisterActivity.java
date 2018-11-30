@@ -15,7 +15,7 @@ import com.mobitant.note.lib.GoLib;
 import com.mobitant.note.lib.MyLog;
 
 /**
- * 맛집 등록 액티비티이다.
+ * 노트 등록 액티비티이다.
  * 액티비티의 기본적인 화면 구성을 하며 실제 사용자 화면은 프래그먼트로 구성한다.
  */
 public class NoteRegisterActivity extends AppCompatActivity {

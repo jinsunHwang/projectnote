@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 맛집 등록 액티비티이다.
+ * 노트 등록 액티비티이다.
  * 액티비티의 기본적인 화면 구성을 하며 실제 사용자 화면은 프래그먼트로 구성한다.
  */
 public class NoteUpdateActivity extends AppCompatActivity {
@@ -71,8 +71,8 @@ public class NoteUpdateActivity extends AppCompatActivity {
     }
 
     /**
-     * 서버에서 맛집 정보를 조회한다.
-     * @param noteInfoSeq 맛집 정보 시퀀스
+     * 서버에서 노트 정보를 조회한다.
+     * @param noteInfoSeq 노트 정보 시퀀스
      * @param memberSeq 사용자 시퀀스
      */
     private void selectNoteInfo(int noteInfoSeq, int memberSeq) {

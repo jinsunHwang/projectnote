@@ -124,7 +124,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * 맛집 정보를 스태거드그리드레이아웃으로 보여주도록 설정한다.
+     * 노트 정보를 스태거드그리드레이아웃으로 보여주도록 설정한다.
      * @param row 스태거드그리드레이아웃에 사용할 열의 개수
      */
     private void setLayoutManager(int row) {
@@ -156,9 +156,9 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * 서버에서 맛집 정보를 조회한다.
+     * 서버에서 노트 정보를 조회한다.
      * @param memberSeq 사용자 시퀀스
-     * @param orderType 맛집 정보 정렬 순서
+     * @param orderType 노트 정보 정렬 순서
      * @param currentPage 현재 페이지
      */
     private void listInfo(int memberSeq, String orderType, final int currentPage) {

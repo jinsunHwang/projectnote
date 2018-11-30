@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * 맛집 정보 리스트의 아이템을 처리하는 어댑터
+ * 노트 정보 리스트의 아이템을 처리하는 어댑터
  */
 public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHolder> {
     private final String TAG = this.getClass().getSimpleName();
@@ -82,7 +82,7 @@ public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHo
 
     /**
      * 즐겨찾기 상태를 변경한다.
-     * @param seq 맛집 정보 시퀀스
+     * @param seq 노트 정보 시퀀스
      * @param keep 즐겨찾기 추가 유무
      */
     private void changeItemKeep(int seq, boolean keep) {

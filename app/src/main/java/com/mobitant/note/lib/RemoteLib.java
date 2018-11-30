@@ -91,8 +91,8 @@ public class RemoteLib {
     }
 
     /**
-     * 맛집 이미지를 서버에 업로드한다.
-     * @param infoSeq 맛집 정보 일련번호
+     * 노트 이미지를 서버에 업로드한다.
+     * @param infoSeq 노트 정보 일련번호
      * @param file 파일 객체
      * @param handler 처리 결과를 응답할 핸들러
      */

@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 맛집 정보를 보는 액티비티이다.
+ * 노트 정보를 보는 액티비티이다.
  */
 public class NoteInfoActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
@@ -46,8 +46,8 @@ public class NoteInfoActivity extends AppCompatActivity {
     ScrollView scrollView;
 
     /**
-     * 맛집 정보를 보여주기 위해 사용자 시퀀스와 맛집 정보 시퀀스를 얻고
-     * 이를 기반으로 서버에서 맛집 정보를 조회하는 메소드를 호출한다.
+     * 노트 정보를 보여주기 위해 사용자 시퀀스와 노트 정보 시퀀스를 얻고
+     * 이를 기반으로 서버에서 노트 정보를 조회하는 메소드를 호출한다.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +110,8 @@ public class NoteInfoActivity extends AppCompatActivity {
     }
 
     /**
-     * 서버에서 맛집 정보를 조회한다.
-     * @param noteInfoSeq 맛집 정보 시퀀스
+     * 서버에서 노트 정보를 조회한다.
+     * @param noteInfoSeq 노트 정보 시퀀스
      * @param memberSeq 사용자 시퀀스
      */
     private void selectNoteInfo(int noteInfoSeq, int memberSeq) {
@@ -142,7 +142,7 @@ public class NoteInfoActivity extends AppCompatActivity {
     }
 
     /**
-     * 서버에서 조회한 맛집 정보를 화면에 설정한다.
+     * 서버에서 조회한 노트 정보를 화면에 설정한다.
      */
     private void setView() {
         getSupportActionBar().setTitle(item.title);
@@ -177,9 +177,9 @@ public class NoteInfoActivity extends AppCompatActivity {
 
 
     /**
-     * 맛집 이미지를 화면에 보여준다.
-     * @param imageView 맛집 이미지를 보여줄 이미지뷰
-     * @param fileName 서버에 저장된 맛집 이미지의 파일 이름
+     * 노트 이미지를 화면에 보여준다.
+     * @param imageView 노트 이미지를 보여줄 이미지뷰
+     * @param fileName 서버에 저장된 노트 이미지의 파일 이름
      */
     private void setImage(ImageView imageView, String fileName) {
         if (StringLib.getInstance().isBlank(fileName)) {

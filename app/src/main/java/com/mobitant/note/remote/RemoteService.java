@@ -51,6 +51,9 @@ public interface RemoteService {
     @POST("/note/info")
     Call<String> insertNoteInfo(@Body NoteInfoItem infoItem);
 
+    @DELETE("/note/info/{info_seq}")
+    Call<String> deleteNoteInfo(@Path("info_seq") int infoSeq);
+
     @Multipart
     @POST("/note/info/image")
     Call<ResponseBody> uploadNoteImage(@Part("info_seq") RequestBody infoSeq,

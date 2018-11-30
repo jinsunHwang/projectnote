@@ -31,7 +31,7 @@ public class KeepLib {
      * 즐겨찾기 추가를 서버에 요청한다.
      * @param handler 결과를 응답할 핸들러
      * @param memberSeq 사용자 일련번호
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void insertKeep(final Handler handler, int memberSeq, final int infoSeq) {
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
@@ -59,7 +59,7 @@ public class KeepLib {
      * 즐겨찾기 삭제를 서버에 요청한다.
      * @param handler 결과를 응답할 핸들러
      * @param memberSeq 사용자 일련번호
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void deleteKeep(final Handler handler, int memberSeq, final int infoSeq) {
         RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
@@ -81,5 +81,29 @@ public class KeepLib {
                 MyLog.d(TAG, "no internet connectivity");
             }
         });
+    }
+
+    public void deleteNoteInfo(final Handler handler, final int infoSeq){
+
+        RemoteService remoteService = ServiceGenerator.createService(RemoteService.class);
+
+        Call<String> call = remoteService.deleteNoteInfo(infoSeq);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if(response.isSuccessful()){
+                    MyLog.d(TAG,"deleteNoteInfo"+response);
+                    handler.sendEmptyMessage(infoSeq);
+                } else {
+                    MyLog.d(TAG,"response error" + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                MyLog.d(TAG,"No internet connectivity");
+            }
+        });
+
     }
 }

@@ -47,7 +47,7 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
 //    /**
 //     * NoteInfoItem 객체를 인자로 저장하는
 //     * NoteRegisterInputFragment 인스턴스를 생성해서 반환한다.
-//     * @param infoItem 맛집 정보를 저장하는 객체
+//     * @param infoItem 노트 정보를 저장하는 객체
 //     * @return NoteRegisterInputFragment 인스턴스
 //     */
     public static NoteRegisterInputFragment newInstance(NoteInfoItem infoItem) {
@@ -98,7 +98,7 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
     }
 
     /**
-     * onCreateView() 메소드 뒤에 호출되며 맛집 정보를 입력할 뷰들을 생성한다.
+     * onCreateView() 메소드 뒤에 호출되며 노트 정보를 입력할 뷰들을 생성한다.
      * @param view onCreateView() 메소드에 의해 반환된 뷰
      * @param savedInstanceState null이 아니라면 이전에 저장된 상태를 가진 객체
      */
@@ -238,7 +238,7 @@ public class NoteRegisterInputFragment extends Fragment implements View.OnClickL
     }
 
     /**
-     * 맛집 이미지를 등록할 수 있는 프래그먼트로 이동한다.
+     * 노트 이미지를 등록할 수 있는 프래그먼트로 이동한다.
      */
     private void goNextPage() {
         System.out.println("등록 goNextPage");

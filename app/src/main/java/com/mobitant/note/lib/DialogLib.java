@@ -30,7 +30,7 @@ public class DialogLib {
      * @param context 컨텍스트 객체
      * @param handler 핸들러 객체
      * @param memberSeq 사용자 일련번호
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void showKeepInsertDialog(Context context, final Handler handler,
                                      final int memberSeq, final int infoSeq) {
@@ -57,7 +57,7 @@ public class DialogLib {
      * @param context 컨텍스트 객체
      * @param handler 핸들러 객체
      * @param memberSeq 사용자 일련번호
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void showKeepDeleteDialog(Context context, final Handler handler,
                                      final int memberSeq, final int infoSeq) {
@@ -74,6 +74,25 @@ public class DialogLib {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         KeepLib.getInstance().deleteKeep(handler, memberSeq, infoSeq);
+                    }
+                })
+                .show();
+    }
+
+    public void showNoteDeleteDialog(Context context, final Handler handler, final int infoseq){
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.note_delete)
+                .setMessage(R.string.note_delete_message)
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        KeepLib.getInstance().deleteNoteInfo(handler,infoseq);
                     }
                 })
                 .show();

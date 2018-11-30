@@ -76,7 +76,7 @@ public class GoLib {
     }
 
     /**
-     * 맛집 정보 등록 액티비티를 실행한다.
+     * 노트 정보 등록 액티비티를 실행한다.
      * @param context 컨텍스트
      */
     public void goNoteRegisterActivity(Context context) {
@@ -95,9 +95,9 @@ public class GoLib {
 
 
     /**
-     * 맛집 정보 액티비티를 실행한다.
+     * 노트 정보 액티비티를 실행한다.
      * @param context 컨텍스트
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void goNoteInfoActivity(Context context, int infoSeq) {
         System.out.println("노트 정보 gogo");
@@ -107,9 +107,9 @@ public class GoLib {
     }
 
     /**
-     * 맛집 정보 액티비티를 실행한다.
+     * 노트 정보 액티비티를 실행한다.
      * @param context 컨텍스트
-     * @param infoSeq 맛집 정보 일련번호
+     * @param infoSeq 노트 정보 일련번호
      */
     public void goNoteShareActivity(Context context, int infoSeq) {
         System.out.println("노트 정보 gogo");

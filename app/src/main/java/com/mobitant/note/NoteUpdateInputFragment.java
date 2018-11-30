@@ -1,8 +1,11 @@
 package com.mobitant.note;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import com.mobitant.note.item.MemberInfoItem;
 import com.mobitant.note.item.NoteInfoItem;
+import com.mobitant.note.lib.DialogLib;
 import com.mobitant.note.lib.GoLib;
 import com.mobitant.note.lib.MyLog;
 import com.mobitant.note.lib.MyToast;
@@ -47,7 +51,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
 //    /**
 //     * NoteInfoItem 객체를 인자로 저장하는
 //     * NoteRegisterInputFragment 인스턴스를 생성해서 반환한다.
-//     * @param infoItem 맛집 정보를 저장하는 객체
+//     * @param infoItem 노트 정보를 저장하는 객체
 //     * @return NoteRegisterInputFragment 인스턴스
 //     */
     public static NoteUpdateInputFragment newInstance(NoteInfoItem infoItem) {
@@ -102,7 +106,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
     }
 
     /**
-     * onCreateView() 메소드 뒤에 호출되며 맛집 정보를 입력할 뷰들을 생성한다.
+     * onCreateView() 메소드 뒤에 호출되며 노트 정보를 입력할 뷰들을 생성한다.
      * @param view onCreateView() 메소드에 의해 반환된 뷰
      * @param savedInstanceState null이 아니라면 이전에 저장된 상태를 가진 객체
      */
@@ -136,7 +140,9 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
         });
 
         Button nextButton = (Button) view.findViewById(R.id.next);
+        Button deleteButton = (Button) view.findViewById(R.id.delete);
         nextButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
     }
 
     private NoteInfoItem getNoteInfoItem(){
@@ -172,6 +178,8 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
 
         if (v.getId() == R.id.next) {
             save();
+        } else if (v.getId() == R.id.delete){
+            DialogLib.getInstance().showNoteDeleteDialog(context,NoteDeleteHandler,infoItem.seq);
         }
 
     }
@@ -248,7 +256,7 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
     }
 
     /**
-     * 맛집 이미지를 등록할 수 있는 프래그먼트로 이동한다.
+     * 노트 이미지를 등록할 수 있는 프래그먼트로 이동한다.
      */
     private void goNextPage() {
         System.out.println("등록 goNextPage");
@@ -283,5 +291,18 @@ public class NoteUpdateInputFragment extends Fragment implements View.OnClickLis
         titleEdit.setText(NoteUpdateActivity.currentItem.title);
         contentEdit.setText(NoteUpdateActivity.currentItem.content);
     }
+
+
+    Handler NoteDeleteHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            context.startActivity(intent);
+        }
+    };
+
 
 }

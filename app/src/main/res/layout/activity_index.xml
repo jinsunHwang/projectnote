@@ -12,7 +12,7 @@
         android:layout_marginBottom="@dimen/spacing_large"
         android:gravity="center"
         android:text="@string/sharenote"
-        android:textColor="@color/app_dfcolor"
+        android:textColor="#CA814A"
         android:textSize="@dimen/text_size_medium2"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:layout_margin="8dp"
         android:gravity="center"
         android:text="@string/network_not_working"
-        android:textColor="@color/app_dfcolor"
+        android:textColor="#CA814A"
         android:textSize="@dimen/text_size_medium"
         android:visibility="gone" />
 

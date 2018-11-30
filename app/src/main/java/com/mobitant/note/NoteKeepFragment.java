@@ -147,9 +147,9 @@ public class NoteKeepFragment extends Fragment {
     }
 
     /**
-     * 서버에서 맛집 정보를 조회한다.
+     * 서버에서 노트 정보를 조회한다.
      * @param memberSeq 사용자 시퀀스
-     * @param orderType 맛집 정보 정렬 순서
+     * @param orderType 노트 정보 정렬 순서
      * @param currentPage 현재 페이지
      */
     private void listKeep(int memberSeq,String orderType, int currentPage){

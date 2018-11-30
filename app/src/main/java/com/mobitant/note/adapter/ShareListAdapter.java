@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * 맛집 정보 리스트의 아이템을 처리하는 어댑터
+ * 노트 정보 리스트의 아이템을 처리하는 어댑터
  */
 public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.ViewHolder> {
     private final String TAG = this.getClass().getSimpleName();

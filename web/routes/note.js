@@ -202,6 +202,26 @@ router.get("/info/:seq", function(req, res, next) {
   });
 });
 
+//note/:info_seq
+router.delete("/:info/:seq", function(req, res, next) {
+  var seq = req.params.seq;
+  console.log(seq);
+
+  if (!seq) {
+    return res.sendStatus(400);
+  }
+
+  var sql_delete = "delete from note_info where seq = ?";
+  var sql_delete2 = "delete from note_info_image where info_seq = ?";
+
+  db.get().query(sql_delete, seq, function(err, rows) {
+    db.get().query(sql_delete2, seq, function(err, rows) {
+      if (err) return res.sendStatus(400);
+      res.sendStatus(200);
+    });
+  });
+});
+
 //note/list
 router.get("/list", function(req, res, next) {
   var member_seq = req.query.member_seq;
