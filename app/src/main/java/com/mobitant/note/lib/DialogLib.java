@@ -26,7 +26,7 @@ public class DialogLib {
     }
 
     /**
-     * 즐겨찾기 추가 다이얼로그 화면을 보여준다.
+     * 공유 추가 다이얼로그 화면을 보여준다.
      * @param context 컨텍스트 객체
      * @param handler 핸들러 객체
      * @param memberSeq 사용자 일련번호
@@ -53,7 +53,7 @@ public class DialogLib {
     }
 
     /**
-     * 즐겨찾기 삭제 다이얼로그 화면을 보여준다.
+     * 공유 삭제 다이얼로그 화면을 보여준다.
      * @param context 컨텍스트 객체
      * @param handler 핸들러 객체
      * @param memberSeq 사용자 일련번호

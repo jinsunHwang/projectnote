@@ -81,9 +81,9 @@ public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHo
     }
 
     /**
-     * 즐겨찾기 상태를 변경한다.
+     * 공유 상태를 변경한다.
      * @param seq 노트 정보 시퀀스
-     * @param keep 즐겨찾기 추가 유무
+     * @param keep 공유 추가 유무
      */
     private void changeItemKeep(int seq, boolean keep) {
         for (int i=0; i < itemList.size(); i++) {
@@ -175,7 +175,7 @@ public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHo
     }
 
     /**
-     * 즐겨찾기 추가가 성공한 경우를 처리하는 핸들러
+     * 공유 추가가 성공한 경우를 처리하는 핸들러
      */
     Handler keepInsertHandler = new Handler() {
         @Override
@@ -187,7 +187,7 @@ public class InfoListAdapter extends RecyclerView.Adapter<InfoListAdapter.ViewHo
     };
 
     /**
-     * 즐겨찾기 삭제가 성공한 경우를 처리하는 핸들러
+     * 공유 삭제가 성공한 경우를 처리하는 핸들러
      */
     Handler keepDeleteHandler = new Handler() {
         @Override

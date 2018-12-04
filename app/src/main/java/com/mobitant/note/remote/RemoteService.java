@@ -69,7 +69,7 @@ public interface RemoteService {
                                                @Query("current_page") int currentPage);
 
 
-    //즐겨찾기
+    //공유
     @POST("/keep/{member_seq}/{info_seq}")
     Call<String> insertKeep(@Path("member_seq") int memberSeq, @Path("info_seq") int infoSeq);
 

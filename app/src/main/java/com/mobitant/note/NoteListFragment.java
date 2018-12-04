@@ -79,7 +79,7 @@ public class NoteListFragment extends Fragment implements View.OnClickListener {
     /**
      * 프래그먼트가 일시 중지 상태가 되었다가 다시 보여질 때 호출된다.
      * NoteInfoActivity가 실행된 후,
-     * 즐겨찾기 상태가 변경되었을 경우 이를 반영하는 용도로 사용한다.
+     * 공유 상태가 변경되었을 경우 이를 반영하는 용도로 사용한다.
      */
     @Override
     public void onResume() {

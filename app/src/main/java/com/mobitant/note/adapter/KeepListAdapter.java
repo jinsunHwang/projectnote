@@ -72,7 +72,7 @@ public class KeepListAdapter extends RecyclerView.Adapter<KeepListAdapter.ViewHo
     }
 
     /**
-     * 노트 정보 시퀀스와 일치하는 아이템을 즐겨찾기 리스트에서 삭제한다.
+     * 노트 정보 시퀀스와 일치하는 아이템을 공유 리스트에서 삭제한다.
      * @param seq
      */
     private  void removeItem(int seq) {

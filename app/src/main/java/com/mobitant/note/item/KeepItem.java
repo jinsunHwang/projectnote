@@ -3,7 +3,7 @@ package com.mobitant.note.item;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * 즐겨찾기 정보를 저장하는 객체
+ * 공유 정보를 저장하는 객체
  */
 public class KeepItem extends NoteInfoItem{
     @SerializedName("keep_seq") public String keepSeq;
