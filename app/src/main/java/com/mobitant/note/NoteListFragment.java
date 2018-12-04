@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.mobitant.note.adapter.InfoListAdapter;
 import com.mobitant.note.custom.EndlessRecyclerViewScrollListener;
 import com.mobitant.note.item.NoteInfoItem;
@@ -27,6 +29,7 @@ import retrofit2.Response;
 
 public class NoteListFragment extends Fragment implements View.OnClickListener {
     private final String TAG = this.getClass().getSimpleName();
+
 
     Context context;
     int memberSeq;

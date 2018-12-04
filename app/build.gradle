@@ -55,5 +55,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.6'
     compile 'com.google.android.gms:play-services-gcm:10.2.6'
 
+    implementation 'com.google.firebase:firebase-messaging:10.2.6'
+
+
 
 }
